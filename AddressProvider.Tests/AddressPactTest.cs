@@ -6,7 +6,7 @@ namespace AddressProvider.Tests
     [TestFixture]
     public class AddressPactTest
     {
-        private const string PactServiceUri = "http://127.0.0.1:5234";
+        private const string PactServiceUri = "http://127.0.0.1:9876";
 
         [Test]
         public void VerifyThatAddressServiceHonoursPacts()
