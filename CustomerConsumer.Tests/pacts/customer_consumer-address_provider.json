@@ -16,25 +16,82 @@
       },
       "response": {
         "body": {
-          "addressType": "billing",
-          "city": "Los Angeles",
-          "country": "United States",
-          "id": "93edc1a1-5093-4d30-a9c1-da04765553b7",
-          "number": 123,
-          "state": "California",
-          "street": "Main street",
-          "zipCode": 12345
+          "AddressType": "billing",
+          "City": "Los Angeles",
+          "Country": "United States",
+          "Id": "93edc1a1-5093-4d30-a9c1-da04765553b7",
+          "Number": 123,
+          "State": "California",
+          "Street": "Main street",
+          "ZipCode": 12345
         },
         "headers": {
           "Content-Type": "application/json; charset=utf-8"
         },
         "matchingRules": {
           "body": {
-            "$": {
+            "$.AddressType": {
               "combine": "AND",
               "matchers": [
                 {
                   "match": "type"
+                }
+              ]
+            },
+            "$.City": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.Country": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.Id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            },
+            "$.Number": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.State": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.Street": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.ZipCode": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
                 }
               ]
             }

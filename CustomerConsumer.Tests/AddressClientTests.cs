@@ -13,7 +13,8 @@ namespace CustomerConsumer.Tests
     {
         private IPactBuilderV3 pact;
         private AddressClient client;
-        private Address address;
+
+        private object address;
 
         private readonly int port = 9876;
 
@@ -25,25 +26,22 @@ namespace CustomerConsumer.Tests
             var Config = new PactConfig
             {
                 PactDir = Path.Join("..", "..", "..", "pacts"),
-                DefaultJsonSettings = new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                }
+                DefaultJsonSettings = new JsonSerializerSettings()
             };
 
             pact = Pact.V3("customer_consumer", "address_provider", Config).WithHttpInteractions(port);
             client = new AddressClient(new Uri($"http://localhost:{port}"));
 
-            address = new Address
+            address = new
             {
-                Id = Guid.Parse(addressId),
-                AddressType = "billing",
-                Street = "Main street",
-                Number = 123,
-                City = "Los Angeles",
-                ZipCode = 12345,
-                State = "California",
-                Country = "United States"
+                Id = Match.Regex(addressId, "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
+                AddressType = Match.Type("billing"),
+                Street = Match.Type("Main street"),
+                Number = Match.Integer(123),
+                City = Match.Type("Los Angeles"),
+                ZipCode = Match.Integer(12345),
+                State = Match.Type("California"),
+                Country = Match.Type("United States")
             };
         }
 
@@ -56,7 +54,7 @@ namespace CustomerConsumer.Tests
                 .WillRespond()
                     .WithStatus(HttpStatusCode.OK)
                     .WithHeader("Content-Type", "application/json; charset=utf-8")
-                    .WithJsonBody(new TypeMatcher(address));
+                    .WithJsonBody(address);
 
             await pact.VerifyAsync(async ctx => {
                 var response = await client.GetAddress(addressId);
