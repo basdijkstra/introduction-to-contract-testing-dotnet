@@ -14,7 +14,6 @@ namespace OrderConsumer.Tests
                     .WithRequest(HttpMethod.Get, $"/address/{addressId}")
                 .WillRespond()
                     .WithStatus(HttpStatusCode.OK)
-                    .WithHeader("Content-Type", "application/json; charset=utf-8")
                     .WithJsonBody(address);
 
             await pact.VerifyAsync(async ctx => {
