@@ -10,7 +10,7 @@ namespace CustomerConsumer.Tests
         public async Task DeleteAddress_AddressIdIsValid()
         {
             pact.UponReceiving("A request to delete an address")
-                    .Given($"address ID invalid_address_id is valid")
+                    .Given($"no specific state required")
                     .WithRequest(HttpMethod.Delete, $"/address/{addressId}")
                 .WillRespond()
                     .WithStatus(HttpStatusCode.NoContent);
@@ -25,7 +25,7 @@ namespace CustomerConsumer.Tests
         public async Task DeleteAddress_AddressIdIsInvalid()
         {
             pact.UponReceiving("A request to delete an address")
-                    .Given($"address ID invalid_address_id is invalid")
+                    .Given($"no specific state required")
                     .WithRequest(HttpMethod.Delete, "/address/invalid_address_id")
                 .WillRespond()
                     .WithStatus(HttpStatusCode.BadRequest);

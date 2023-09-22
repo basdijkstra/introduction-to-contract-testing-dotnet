@@ -42,7 +42,7 @@ namespace OrderConsumer.Tests
         public async Task GetAddress_AddressIdIsInvalid()
         {
             pact.UponReceiving("A request to retrieve an address")
-                    .Given($"address ID invalid_address_id is invalid")
+                    .Given($"no specific state required")
                     .WithRequest(HttpMethod.Get, "/address/invalid_address_id")
                 .WillRespond()
                     .WithStatus(HttpStatusCode.BadRequest);
