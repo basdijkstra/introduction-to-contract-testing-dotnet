@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using AddressProvider.Tests.Middleware;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 using PactNet.Verifier;
 
 namespace AddressProvider.Tests
@@ -13,12 +15,14 @@ namespace AddressProvider.Tests
         {
             using var app = Startup.WebApp();
             app.Urls.Add(PactServiceUri);
+            app.UseMiddleware<ProviderStateMiddleware>();
             app.Start();
             
             using var verifier = new PactVerifier(new PactVerifierConfig());
-            var pact = new FileInfo(Path.Join("..", "..", "..", "pacts", "customer_consumer-address_provider.json"));
+            var pactFolder = new DirectoryInfo(Path.Join("..", "..", "..", "pacts"));
             verifier.ServiceProvider("address_provider", new Uri(PactServiceUri))
-                .WithFileSource(pact)
+                .WithDirectorySource(pactFolder)
+                .WithProviderStateUrl(new Uri($"{PactServiceUri}/provider-states"))
                 .Verify();
         }
     }
