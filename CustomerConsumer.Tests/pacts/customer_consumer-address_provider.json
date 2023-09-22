@@ -4,7 +4,67 @@
   },
   "interactions": [
     {
-      "description": "A valid request for an address",
+      "description": "A request to delete an address",
+      "providerStates": [
+        {
+          "name": "address ID invalid_address_id is invalid"
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "path": "/address/invalid_address_id"
+      },
+      "response": {
+        "status": 400
+      }
+    },
+    {
+      "description": "A request to retrieve an address",
+      "providerStates": [
+        {
+          "name": "address ID invalid_address_id is invalid"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/address/invalid_address_id"
+      },
+      "response": {
+        "status": 400
+      }
+    },
+    {
+      "description": "A request to delete an address",
+      "providerStates": [
+        {
+          "name": "address ID invalid_address_id is valid"
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "path": "/address/93edc1a1-5093-4d30-a9c1-da04765553b7"
+      },
+      "response": {
+        "status": 204
+      }
+    },
+    {
+      "description": "A request to retrieve an address",
+      "providerStates": [
+        {
+          "name": "address with ID 93edc1a1-5093-4d30-a9c1-da04765553b7 does not exist"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/address/93edc1a1-5093-4d30-a9c1-da04765553b7"
+      },
+      "response": {
+        "status": 404
+      }
+    },
+    {
+      "description": "A request to retrieve an address",
       "providerStates": [
         {
           "name": "address with ID 93edc1a1-5093-4d30-a9c1-da04765553b7 exists"

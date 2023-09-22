@@ -17,4 +17,8 @@
     <ProjectReference Include="..\CustomerConsumer\CustomerConsumer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="pacts\" />
+  </ItemGroup>
+
 </Project>
