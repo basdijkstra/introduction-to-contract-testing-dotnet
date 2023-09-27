@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using System.Net;
 
 namespace CustomerConsumer.Tests
@@ -19,6 +20,10 @@ namespace CustomerConsumer.Tests
             await pact.VerifyAsync(async ctx => {
                 var response = await client.GetAddress(addressId);
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
+                string responseBodyAsString = await response.Content.ReadAsStringAsync();
+                dynamic responseContent = JsonConvert.DeserializeObject<dynamic>(responseBodyAsString)!;
+                Assert.That(responseContent.Id.Value, Is.EqualTo(addressId));
             });
         }
 

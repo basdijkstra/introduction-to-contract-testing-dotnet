@@ -34,14 +34,17 @@ namespace AddressProvider.Tests.Middleware
 
         private void DoNothing()
         {
+            Console.WriteLine("DO NOTHING");
         }
 
         private void CreateAddress()
         {
+            Console.WriteLine("CREATE ADDRESS");
         }
 
         private void DeleteAddress()
         {
+            Console.WriteLine("DELETE ADDRESS");
         }
 
         public async Task Invoke(HttpContext context)
